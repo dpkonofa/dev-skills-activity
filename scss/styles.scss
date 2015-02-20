@@ -1,0 +1,255 @@
+@import "compass/css3/images";  // Include Compass for background gradients
+@import "compass/css3/border-radius";  // Include Compass for border radius
+@import url('http://fonts.googleapis.com/css?family=Oxygen:400,700'); // Import Oxygen font for modal
+
+// Variables
+
+// Colors for contact list
+$title-bg-top: #4d4d4d;
+$title-bg-bottom: #262626;
+$content-border: #4a4a4a;
+$available: #0f0;
+$unavailable: #f00;
+$away: #ff0;
+$row-bg: #212121;
+$row-hover: #484848;
+$row-top: #131313;
+$alt-row: #1a1a1a;
+$detail-left: #1b1b1b;
+$details: #363636;
+$link-color: #28aeb1;
+
+// Colors for modal
+$modal-top: #254375;
+$modal-bottom: #355da0;
+$modal-close: #c6c6c6;
+$modal-h2: #cadeff;
+$modal-learn: #f8f65f;
+
+// Standard colors
+$white: #fff;
+$black: #000;
+
+// Styles
+body {
+	padding: 1em;
+	font-family: 'Arial', sans-serif;
+	font-size: 13px;
+	background: $black;
+}
+.content {
+	margin: 0 auto;
+	@include border-radius(0.5em);
+	min-height: 100%;
+	color: $white;
+	width: 22em;
+	border: 1px solid $content-border;
+	h1 {
+		@include background-image(linear-gradient(to bottom, $title-bg-top, $title-bg-bottom));
+		padding: 1em 1.25em;
+		margin: 0;
+		font-size: 1.1em;
+	}
+	ul {
+		padding-left: 0;
+		margin: 0;
+		list-style: none;
+	}
+	& > ul {
+		& > li {
+			background: $row-bg;
+			border-top: 1px solid $row-top;
+			&:nth-of-type(even) {
+				background: $alt-row;
+			}
+			&:hover {
+				position: relative;
+				background: $row-hover;
+				.details {
+					background: $row-hover;
+					position: absolute;
+					border-left: none;
+					color: $white;
+					width: 47.5%;
+					li {
+						display: block;
+						margin-bottom: 1em;
+						&:last-of-type {
+							margin-bottom: 0;
+						}
+					}
+					a {
+						text-decoration: initial;
+						color: $link-color;
+					}
+				}
+			}
+		}
+	}
+	.status {
+		display: inline-block;
+		border-radius: 100%;
+		height: 0.75em;
+		width: 0.75em;
+		background: $available;
+		margin-right: 0.25em;
+		&.unavailable {
+			background: $unavailable;
+		}
+		&.away {
+			background: $away;
+		}
+	}
+	.name, .details {
+		display: inline-block;
+		min-width: 25%;
+		vertical-align: top;
+		padding: 1em 1.5em;
+	}
+	.details {
+		vertical-align: top;
+		border-left: 1px solid $detail-left;
+		color: $details;
+		a {
+			color: $details;
+			text-decoration: none;
+		}
+		li {
+			display: none;
+			vertical-align: bottom;
+		}
+		.email, .phone {
+			display: block;
+		}
+		.hidden {
+			display: none;
+		}
+	}
+	.select {
+		padding: 1em 1.5em;
+		text-align: right;
+	}
+}
+.modal {
+	@include background-image(linear-gradient(to bottom, $modal-top, $modal-bottom));
+	position: absolute;
+	top: 2em;
+	left: 2em;
+	right: 2em;
+	padding: 1.25em;
+	color: $white;
+	min-width: 19em;
+	.close, .learn-more {
+		text-align: right;
+	}
+	.close a, .learn-more a {
+		text-decoration: none;
+	}
+	.close a {
+		color: $modal-close;
+		font-size: 1.25em;
+	}
+	h1, h2 {
+		font-family: 'Oxygen', 'Arial', sans-serif;
+		font-weight: normal;
+		text-align: center;
+	}
+	h2 {
+		text-transform: uppercase;
+		color: $modal-h2;
+		font-size: 1.25em;
+	}
+	.image {
+		position: relative;
+		margin: 1em 0;
+		vertical-align: top;
+		img {
+			min-width: 100%;
+		}
+	}
+	.promo-content {
+		display: inline-block;
+	}
+	.automation {
+		background: $modal-bottom;
+		position: absolute;
+		left: -1.75em;
+		top: 50%;
+		margin-top: -3.5em;
+		img {
+			width: 2em;
+			padding: 2em;
+			min-width: 0;
+		}
+	}
+	p {
+		font-size: 1.15em;
+		line-height: 1.75;
+	}
+	.learn-more a {
+		color: $modal-learn;
+		font-size: 1.1em;
+	}
+}
+.large {
+	display: none;
+}
+.small {
+	display: block;
+}
+
+// Media Queries
+@media only screen and (min-width: 576px){
+	.content {
+		max-width: 38em;
+		width: auto;
+		ul > li:hover .details {
+			width: 60%;
+		}
+	}
+	.modal {
+		max-width: 50em;
+		margin: 0 auto;
+		h1, h2 {
+			text-align: left;
+		}
+		.image {
+			margin: 2em 1em 0 0;
+		}
+	}
+	.promo-content {
+		width: 50%;
+		margin-left: 1em;
+	}
+	.small { 
+		display: none;
+	}
+	.large {
+		display: inline-block;
+	}
+}
+
+// IE overrides 
+
+.no-cssgradients {
+	.modal {
+		background: $modal-bottom;
+		width: 50em;
+		margin: 0 auto;
+	}
+	h1, h2 {
+		text-align: left;
+	}
+	.small {
+		display: none;
+	}
+	.large {
+		display: inline-block;
+		margin-right: 1em;
+		width: 45%;
+	}
+	.promo-content {
+		display: inline-block;
+		width: 50%;
+	}
+}
